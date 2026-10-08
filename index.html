@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TradeLab｜個人股票交易日誌</title>
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 <div class="app">
@@ -14,53 +14,21 @@
   </div>
   <div class="nav"><button class="on" data-p="dash">績效總覽</button><button data-p="positions">持倉 / 部位</button><button data-p="new">新增成交</button><button data-p="log">成交紀錄</button><button data-p="watch">科技股觀察池</button></div>
 
-  <section id="dash" class="page on">
-    <div class="kpis">
-      <div class="card kpi"><span>完整平倉部位</span><b id="kN">0</b></div><div class="card kpi"><span>勝率</span><b id="kW">—</b></div><div class="card kpi"><span>TWD 已實現損益</span><b id="kTW">NT$0</b></div><div class="card kpi"><span>USD 已實現損益</span><b id="kUS">$0</b></div><div class="card kpi"><span>目前開放部位</span><b id="kOpen">0</b></div><div class="card kpi"><span>總交易成本</span><b id="kCost">—</b></div>
-    </div>
-    <div class="card panel" style="margin-top:14px"><h3>Setup 統計（以完整平倉部位計）</h3><div id="setups" class="mini"></div></div>
-  </section>
+  <section id="dash" class="page on"><div class="kpis"><div class="card kpi"><span>完整平倉部位</span><b id="kN">0</b></div><div class="card kpi"><span>勝率</span><b id="kW">—</b></div><div class="card kpi"><span>TWD 已實現損益</span><b id="kTW">NT$0</b></div><div class="card kpi"><span>USD 已實現損益</span><b id="kUS">$0</b></div><div class="card kpi"><span>目前開放部位</span><b id="kOpen">0</b></div><div class="card kpi"><span>總交易成本</span><b id="kCost">—</b></div></div><div class="card panel" style="margin-top:14px"><h3>Setup 統計（以完整平倉部位計）</h3><div id="setups" class="mini"></div></div></section>
 
-  <section id="positions" class="page">
-    <div class="callout" style="margin-bottom:12px">同一檔股票在尚未完全賣出前，後續買進會自動視為「加碼」併入同一個部位；賣出則會自動視為「減碼」。每筆成交仍完整保留，可展開查看與編輯。</div>
-    <div id="positionList"></div>
-  </section>
+  <section id="positions" class="page"><div class="callout" style="margin-bottom:12px">同一檔股票在尚未完全賣出前，後續買進會自動視為「加碼」併入同一個部位；賣出則會自動視為「減碼」。每筆成交仍完整保留，可展開查看與編輯。</div><div id="positionList"></div></section>
 
-  <section id="new" class="page">
-    <div class="card form"><h2 id="formTitle" style="margin-top:0">新增成交</h2><div class="sub">只要記錄每一次實際成交；系統會自動整理成同一個部位。</div>
-    <form id="form"><input type="hidden" id="editPos"><input type="hidden" id="editLeg">
-      <div class="formgrid" style="margin-top:18px">
-        <div class="f"><label>動作 *</label><select id="action"><option value="BUY">買進 / 加碼</option><option value="SELL">賣出 / 減碼</option></select></div>
-        <div class="f"><label>市場 *</label><select id="market"><option value="TW">台股 (TWD)</option><option value="US">美股 (USD)</option></select></div>
-        <div class="f searchwrap"><label>股票代號 / 名稱搜尋 *</label><input id="stockq" autocomplete="off" placeholder="智原 / 3035 / NVIDIA / NVDA"><div id="sug" class="suggest"></div><div class="sub">輸入名稱或代號</div></div>
-        <div class="f"><label>股票名稱</label><input id="name"></div>
-        <div class="f"><label>股票代號 *</label><input id="ticker"></div>
-        <div class="f"><label>成交日期時間 *</label><input id="tradeAt" type="datetime-local"></div>
-        <div class="f"><label>成交價格 *</label><input id="price" type="number" step="any" min="0"></div>
-        <div class="f"><label>數量 *</label><div style="display:grid;grid-template-columns:1fr 95px;gap:7px"><input id="qty" type="number" step="any" min="0"><select id="qtyUnit"><option value="LOT">張</option><option value="SHARE">股</option></select></div></div>
-        <div class="f"><label>Setup</label><select id="setup"><option>VCP</option><option>突破</option><option>突破後回測</option><option>回測進場</option><option>3C</option><option>RS + VCP</option><option>趨勢回檔</option><option>財報突破</option><option>其他</option></select></div>
-        <div class="f"><label>原始停損價</label><input id="stop" type="number" step="any" min="0"></div>
-        <div class="f"><label>是否當沖賣出</label><select id="daytrade"><option value="no">否</option><option value="yes">是（台股符合資格時）</option></select></div>
-        <div class="f"><label>費用模式</label><select id="feeMode"><option value="auto">自動估算</option><option value="manual">手動覆寫</option></select></div>
-        <div class="f"><label>手續費（手動覆寫）</label><input id="manualFee" type="number" step="any" min="0" placeholder="留空＝自動"></div>
-        <div class="f"><label>證交稅 / 其他稅費（手動覆寫）</label><input id="manualTax" type="number" step="any" min="0" placeholder="留空＝自動"></div>
-        <div class="f span2"><label>進場 / 交易理由</label><textarea id="reason" rows="3"></textarea></div>
-        <div class="f span2"><label>復盤 / 備註</label><textarea id="review" rows="3"></textarea></div>
-        <div class="preview"><div class="preview-grid"><div class="pv"><small>成交金額</small><b id="pvAmount">—</b></div><div class="pv"><small>估算手續費</small><b id="pvFee">—</b></div><div class="pv"><small>估算證交稅 / 稅費</small><b id="pvTax">—</b></div><div class="pv"><small>本筆總成本</small><b id="pvCost">—</b></div><div class="pv"><small>成交後持有</small><b id="pvRemain">—</b></div></div></div>
-      </div>
-      <div class="actions"><button type="button" class="btn" id="clear">清空</button><button class="btn primary">儲存成交</button></div>
-    </form></div>
-  </section>
+  <section id="new" class="page"><div class="card form"><h2 id="formTitle" style="margin-top:0">新增成交</h2><div class="sub">只要記錄每一次實際成交；系統會自動整理成同一個部位。</div><form id="form"><input type="hidden" id="editPos"><input type="hidden" id="editLeg"><div class="formgrid" style="margin-top:18px"><div class="f"><label>動作 *</label><select id="action"><option value="BUY">買進 / 加碼</option><option value="SELL">賣出 / 減碼</option></select></div><div class="f"><label>市場 *</label><select id="market"><option value="TW">台股 (TWD)</option><option value="US">美股 (USD)</option></select></div><div class="f searchwrap"><label>股票代號 / 名稱搜尋 *</label><input id="stockq" autocomplete="off" placeholder="智原 / 3035 / NVIDIA / NVDA"><div id="sug" class="suggest"></div><div class="sub">輸入名稱或代號</div></div><div class="f"><label>股票名稱</label><input id="name"></div><div class="f"><label>股票代號 *</label><input id="ticker"></div><div class="f"><label>成交日期時間 *</label><input id="tradeAt" type="datetime-local"></div><div class="f"><label>成交價格 *</label><input id="price" type="number" step="any" min="0"></div><div class="f"><label>數量 *</label><div style="display:grid;grid-template-columns:1fr 95px;gap:7px"><input id="qty" type="number" step="any" min="0"><select id="qtyUnit"><option value="LOT">張</option><option value="SHARE">股</option></select></div></div><div class="f"><label>Setup</label><select id="setup"><option>VCP</option><option>突破</option><option>突破後回測</option><option>回測進場</option><option>3C</option><option>RS + VCP</option><option>趨勢回檔</option><option>財報突破</option><option>其他</option></select></div><div class="f"><label>原始停損價</label><input id="stop" type="number" step="any" min="0"></div><div class="f"><label>是否當沖賣出</label><select id="daytrade"><option value="no">否</option><option value="yes">是（台股符合資格時）</option></select></div><div class="f"><label>費用模式</label><select id="feeMode"><option value="auto">自動估算</option><option value="manual">手動覆寫</option></select></div><div class="f"><label>手續費（手動覆寫）</label><input id="manualFee" type="number" step="any" min="0" placeholder="留空＝自動"></div><div class="f"><label>證交稅 / 其他稅費（手動覆寫）</label><input id="manualTax" type="number" step="any" min="0" placeholder="留空＝自動"></div><div class="f span2"><label>進場 / 交易理由</label><textarea id="reason" rows="3"></textarea></div><div class="f span2"><label>復盤 / 備註</label><textarea id="review" rows="3"></textarea></div><div class="preview"><div class="preview-grid"><div class="pv"><small>成交金額</small><b id="pvAmount">—</b></div><div class="pv"><small>估算手續費</small><b id="pvFee">—</b></div><div class="pv"><small>估算證交稅 / 稅費</small><b id="pvTax">—</b></div><div class="pv"><small>本筆總成本</small><b id="pvCost">—</b></div><div class="pv"><small>成交後持有</small><b id="pvRemain">—</b></div></div></div></div><div class="actions"><button type="button" class="btn" id="clear">清空</button><button class="btn primary">儲存成交</button></div></form></div></section>
 
   <section id="log" class="page"><div class="card"><div style="padding:12px"><input id="filter" placeholder="搜尋股票、Setup、備註"></div><div class="tablewrap"><table><thead><tr><th>日期</th><th>市場</th><th>股票</th><th>動作</th><th>數量</th><th>價格</th><th>成交額</th><th>手續費</th><th>證交稅/稅費</th><th>操作</th></tr></thead><tbody id="rows"></tbody></table></div></div></section>
 
-  <section id="watch" class="page"><div class="grid2"><div class="card watch"><div class="wtop"><h3>🇺🇸 美股科技</h3><span class="tag">US</span></div><div id="usw" class="watchlist"></div></div><div class="card watch"><div class="wtop"><h3>🇹🇼 台股科技</h3><span class="tag">TW</span></div><div id="tww" class="watchlist"></div></div></div><div class="foot">台股 K 線改用證交所日行情直接繪製；美股仍使用 TradingView。觀察池不是買進建議。</div></section>
+  <section id="watch" class="page"><div class="grid2"><div class="card watch"><div class="wtop"><h3>🇺🇸 美股科技</h3><span class="tag">US</span></div><div id="usw" class="watchlist"></div></div><div class="card watch"><div class="wtop"><h3>🇹🇼 台股科技</h3><span class="tag">TW</span></div><div id="tww" class="watchlist"></div></div></div><div class="foot">K 線改用 Yahoo Finance 歷史行情直接繪製；台股籌碼以證交所三大法人資料為主，主力進出提供 Yahoo 股市快捷入口。</div></section>
 </div>
 
 <div id="settingsModal" class="modal"><div class="mbox" style="max-width:760px"><div class="mhead"><b>交易成本設定</b><button class="btn" id="settingsClose">關閉</button></div><div style="padding:18px"><div class="callout">台股「證交稅」不是所得稅：一般股票賣出預設 0.3%；符合現股當沖資格時預設 0.15%。券商手續費依你的券商折扣而異，所以可在這裡設定一次，之後每筆自動計算。</div><div class="settings-grid" style="margin-top:14px"><div class="f"><label>台股手續費基準率 (%)</label><input id="setTwFee" type="number" step="0.0001"></div><div class="f"><label>券商折扣倍率</label><input id="setTwDiscount" type="number" step="0.01" placeholder="例如 0.28 代表 2.8 折"></div><div class="f"><label>每筆最低手續費 (TWD)</label><input id="setTwMin" type="number" step="1"></div><div class="f"><label>台股一般賣出證交稅 (%)</label><input id="setTwTax" type="number" step="0.01"></div><div class="f"><label>台股當沖賣出證交稅 (%)</label><input id="setTwDayTax" type="number" step="0.01"></div><div class="f"><label>美股每筆固定手續費 (USD)</label><input id="setUsFee" type="number" step="0.01"></div><div class="f"><label>美股賣出其他費率 (%)</label><input id="setUsSellRate" type="number" step="0.0001"></div></div><div class="actions"><button class="btn primary" id="settingsSave">儲存設定</button></div></div></div></div>
 
-<div id="stockModal" class="modal"><div class="mbox"><div class="mhead"><div><b id="mt" style="font-size:21px"></b> <span id="mn" class="muted"></span></div><button id="mclose" class="btn">關閉</button></div><div class="tabs"><button class="on" data-tab="chart">K線＋成交量</button><button data-tab="tech">技術面</button><button data-tab="fund">基本面</button></div><div id="tab-chart" class="tabp on"><div id="tvchart" class="tv"></div></div><div id="tab-tech" class="tabp"><div id="tvtech" class="tv" style="height:460px"></div></div><div id="tab-fund" class="tabp"><div class="grid2"><div id="tvprofile" class="tv" style="height:520px"></div><div id="tvfund" class="tv" style="height:520px"></div></div></div></div></div>
+<div id="stockModal" class="modal"><div class="mbox"><div class="mhead"><div><b id="mt" style="font-size:21px"></b> <span id="mn" class="muted"></span></div><button id="mclose" class="btn">關閉</button></div><div class="tabs"><button class="on" data-tab="chart">K線</button><button data-tab="tech">技術面</button><button data-tab="chip">籌碼</button><button data-tab="fund">基本面</button></div><div id="tab-chart" class="tabp on"><div id="tvchart" class="tv" style="height:760px"></div></div><div id="tab-tech" class="tabp"><div id="tvtech" class="tv" style="height:520px"></div></div><div id="tab-chip" class="tabp"><div id="tvchip" class="tv" style="height:600px"></div></div><div id="tab-fund" class="tabp"><div class="grid2"><div id="tvprofile" class="tv" style="height:520px"></div><div id="tvfund" class="tv" style="height:520px"></div></div></div></div></div>
 
-<script src="app.js?v=4"></script>
-<script src="chart-fix.js?v=4"></script>
+<script src="app.js?v=5"></script>
+<script src="chart-fix.js?v=5"></script>
 </body></html>
