@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TradeLab｜個人股票交易日誌</title>
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 <div class="app">
@@ -22,13 +22,14 @@
 
   <section id="log" class="page"><div class="card"><div style="padding:12px"><input id="filter" placeholder="搜尋股票、Setup、備註"></div><div class="tablewrap"><table><thead><tr><th>日期</th><th>市場</th><th>股票</th><th>動作</th><th>數量</th><th>價格</th><th>成交額</th><th>手續費</th><th>證交稅/稅費</th><th>操作</th></tr></thead><tbody id="rows"></tbody></table></div></div></section>
 
-  <section id="watch" class="page"><div class="grid2"><div class="card watch"><div class="wtop"><h3>🇺🇸 美股科技</h3><span class="tag">US</span></div><div id="usw" class="watchlist"></div></div><div class="card watch"><div class="wtop"><h3>🇹🇼 台股科技</h3><span class="tag">TW</span></div><div id="tww" class="watchlist"></div></div></div><div class="foot">美股主圖使用 TradingView 官方 Advanced Chart；台股主圖使用 FinMind / 證交所行情與互動 K 線，並顯示 MA20 / 50 / 100 / 200、成交量與法人籌碼。</div></section>
+  <section id="watch" class="page"><div class="callout" style="margin-bottom:12px"><b>科技供應鏈觀察池：</b>依「上游 → 中游 → 下游」分類；每個大類再依 IC設計、被動元件、載板、光通訊、散熱、電力、低軌衛星／衛星通訊細分。美股 100 檔、台股 50 檔，以目前市值規模與產業代表性優先。</div><div class="grid2"><div class="card watch"><div class="wtop"><h3>🇺🇸 美股科技｜100</h3><span class="tag">US</span></div><div id="usw" class="watchlist"></div></div><div class="card watch"><div class="wtop"><h3>🇹🇼 台股科技｜50</h3><span class="tag">TW</span></div><div id="tww" class="watchlist"></div></div></div><div class="foot">分類屬投資研究用途的供應鏈分類，部分公司同時跨多個領域；此處以主要投資主題歸類。點選個股仍可查看 K 線、技術面、籌碼與基本面。</div></section>
 </div>
 
 <div id="settingsModal" class="modal"><div class="mbox" style="max-width:760px"><div class="mhead"><b>交易成本設定</b><button class="btn" id="settingsClose">關閉</button></div><div style="padding:18px"><div class="callout">台股「證交稅」不是所得稅：一般股票賣出預設 0.3%；符合現股當沖資格時預設 0.15%。券商手續費依你的券商折扣而異，所以可在這裡設定一次，之後每筆自動計算。</div><div class="settings-grid" style="margin-top:14px"><div class="f"><label>台股手續費基準率 (%)</label><input id="setTwFee" type="number" step="0.0001"></div><div class="f"><label>券商折扣倍率</label><input id="setTwDiscount" type="number" step="0.01" placeholder="例如 0.28 代表 2.8 折"></div><div class="f"><label>每筆最低手續費 (TWD)</label><input id="setTwMin" type="number" step="1"></div><div class="f"><label>台股一般賣出證交稅 (%)</label><input id="setTwTax" type="number" step="0.01"></div><div class="f"><label>台股當沖賣出證交稅 (%)</label><input id="setTwDayTax" type="number" step="0.01"></div><div class="f"><label>美股每筆固定手續費 (USD)</label><input id="setUsFee" type="number" step="0.01"></div><div class="f"><label>美股賣出其他費率 (%)</label><input id="setUsSellRate" type="number" step="0.0001"></div></div><div class="actions"><button class="btn primary" id="settingsSave">儲存設定</button></div></div></div></div>
 
 <div id="stockModal" class="modal"><div class="mbox"><div class="mhead"><div><b id="mt" style="font-size:21px"></b> <span id="mn" class="muted"></span></div><button id="mclose" class="btn">關閉</button></div><div class="tabs"><button class="on" data-tab="chart">K線</button><button data-tab="tech">技術面</button><button data-tab="chip">籌碼</button><button data-tab="fund">基本面</button></div><div id="tab-chart" class="tabp on"><div id="tvchart" class="tv" style="height:760px"></div></div><div id="tab-tech" class="tabp"><div id="tvtech" class="tv" style="height:520px"></div></div><div id="tab-chip" class="tabp"><div id="tvchip" class="tv" style="height:600px"></div></div><div id="tab-fund" class="tabp"><div class="grid2"><div id="tvprofile" class="tv" style="height:520px"></div><div id="tvfund" class="tv" style="height:520px"></div></div></div></div></div>
 
-<script src="app.js?v=7"></script>
-<script src="chart-fix.js?v=7"></script>
+<script src="app.js?v=8"></script>
+<script src="chart-fix.js?v=8"></script>
+<script src="watchlist-v2.js?v=8"></script>
 </body></html>
